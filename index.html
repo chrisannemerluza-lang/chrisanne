@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chris-Anne Roque — Senior Virtual Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --purple: #7F77DD;
+    --purple-light: #EEEDFE;
+    --purple-mid: #534AB7;
+    --purple-dark: #3C3489;
+    --pink: #D4537E;
+    --pink-light: #FBEAF0;
+    --teal: #1D9E75;
+    --teal-light: #E1F5EE;
+    --amber: #EF9F27;
+    --amber-light: #FAEEDA;
+    --coral: #D85A30;
+    --coral-light: #FAECE7;
+    --text: #1a1a2e;
+    --text-muted: #6b6b8a;
+    --bg: #faf9ff;
+    --card: #ffffff;
+    --border: rgba(127,119,221,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(250,249,255,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; color: var(--purple-dark);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; color: var(--text-muted);
+    text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--purple); }
+  .nav-cta {
+    background: var(--purple); color: #fff;
+    padding: 8px 18px; border-radius: 100px;
+    font-size: 13px; font-weight: 600;
+    text-decoration: none; transition: background .2s;
+  }
+  .nav-cta:hover { background: var(--purple-mid); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 7rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: linear-gradient(160deg, #EEEDFE 0%, #faf9ff 40%, #FBEAF0 70%, #E1F5EE 100%);
+  }
+  .blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(60px); opacity: 0.5;
+    animation: drift 8s ease-in-out infinite alternate;
+  }
+  .blob-1 { width: 400px; height: 400px; background: #CECBF6; top: -100px; left: -100px; }
+  .blob-2 { width: 300px; height: 300px; background: #F4C0D1; top: 20%; right: -50px; animation-delay: -3s; }
+  .blob-3 { width: 250px; height: 250px; background: #9FE1CB; bottom: -50px; left: 30%; animation-delay: -5s; }
+  @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.05); } }
+
+  .hero-inner { position: relative; z-index: 1; max-width: 680px; }
+
+  .avatar-wrap {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px; color: #fff;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 8px 32px rgba(127,119,221,0.3);
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--purple-light); color: var(--purple-dark);
+    padding: 5px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 600; letter-spacing: .04em;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(127,119,221,0.25);
+  }
+  .hero-tag::before { content: '⭐'; font-size: 11px; }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.4rem, 6vw, 3.5rem);
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: .5rem;
+  }
+  h1 em { color: var(--purple); font-style: italic; }
+
+  .hero-sub {
+    font-size: 15px; color: var(--text-muted);
+    margin-bottom: .75rem;
+  }
+  .hero-location {
+    font-size: 13px; color: var(--text-muted);
+    margin-bottom: 1.75rem;
+  }
+  .hero-location span { color: var(--teal); font-weight: 600; }
+
+  .hero-badges {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; margin-bottom: 2rem;
+  }
+  .hbadge {
+    padding: 5px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+    border: 1px solid;
+  }
+  .hb-green  { background: var(--teal-light); color: #085041; border-color: rgba(29,158,117,.2); }
+  .hb-purple { background: var(--purple-light); color: var(--purple-dark); border-color: rgba(127,119,221,.25); }
+  .hb-amber  { background: var(--amber-light); color: #633806; border-color: rgba(239,159,39,.25); }
+  .hb-pink   { background: var(--pink-light); color: #72243E; border-color: rgba(212,83,126,.2); }
+
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-main {
+    background: var(--purple); color: #fff;
+    padding: 13px 28px; border-radius: 100px;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none; transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 20px rgba(127,119,221,.35);
+  }
+  .btn-main:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(127,119,221,.45); }
+  .btn-ghost {
+    background: transparent; color: var(--purple);
+    padding: 13px 28px; border-radius: 100px;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none; border: 1.5px solid var(--purple);
+    transition: background .2s;
+  }
+  .btn-ghost:hover { background: var(--purple-light); }
+
+  /* ─── STATS ─── */
+  .stats-section {
+    padding: 3rem 2rem;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stats-inner {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+  }
+  .stat-item {
+    background: var(--card);
+    padding: 1.75rem 1.5rem; text-align: center;
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem; color: var(--purple);
+    display: block;
+  }
+  .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+
+  /* ─── SECTIONS SHARED ─── */
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 900px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--purple);
+    margin-bottom: .5rem;
+  }
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    color: var(--text); margin-bottom: 2rem;
+    line-height: 1.2;
+  }
+
+  /* ─── ABOUT ─── */
+  .about-section { background: var(--bg); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .about-text p { font-size: 15px; line-height: 1.85; color: var(--text-muted); margin-bottom: 1rem; }
+  .about-text p strong { color: var(--text); }
+  .impact-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .impact-list li {
+    font-size: 13.5px; line-height: 1.65; color: var(--text-muted);
+    padding: 10px 14px 10px 38px; position: relative;
+    background: var(--card); border-radius: 10px;
+    border: 1px solid var(--border);
+    transition: border-color .2s;
+  }
+  .impact-list li:hover { border-color: rgba(127,119,221,.35); }
+  .impact-list li::before {
+    content: '🔥'; position: absolute; left: 12px; top: 10px; font-size: 13px;
+  }
+
+  /* ─── SERVICES ─── */
+  .services-section { background: var(--purple-light); }
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .svc-card {
+    background: var(--card); border-radius: 16px;
+    padding: 1.5rem; border: 1px solid var(--border);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .svc-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(127,119,221,.15); }
+  .svc-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 1rem;
+  }
+  .svc-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .svc-desc  { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ─── TOOLS ─── */
+  .tools-section { background: var(--card); }
+  .tools-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+  .tool-group { }
+  .tool-group-name {
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;
+  }
+  .pills-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    padding: 6px 14px; border-radius: 100px;
+    font-size: 12.5px; font-weight: 500;
+    border: 1px solid var(--border);
+    background: var(--bg); color: var(--text);
+    transition: background .15s, border-color .15s;
+  }
+  .pill:hover { background: var(--purple-light); border-color: rgba(127,119,221,.3); }
+
+  /* ─── TESTIMONIAL ─── */
+  .testi-section { background: linear-gradient(135deg, #EEEDFE 0%, #FBEAF0 100%); }
+  .testi-card {
+    background: var(--card); border-radius: 20px;
+    padding: 2.5rem; border: 1px solid var(--border);
+    max-width: 720px; margin: 0 auto;
+    position: relative;
+  }
+  .quote-mark {
+    font-family: 'DM Serif Display', serif;
+    font-size: 6rem; line-height: .8;
+    color: var(--purple-light);
+    position: absolute; top: 1rem; left: 1.5rem;
+    user-select: none;
+  }
+  .testi-text {
+    font-size: 16px; line-height: 1.85;
+    color: var(--text); font-style: italic;
+    margin-bottom: 1.5rem;
+    position: relative; z-index: 1;
+  }
+  .testi-footer { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--amber));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 14px; color: #fff;
+    flex-shrink: 0;
+  }
+  .testi-name { font-size: 14px; font-weight: 600; color: var(--text); }
+  .testi-role { font-size: 12px; color: var(--text-muted); }
+  .stars { color: var(--amber); font-size: 14px; margin-bottom: 1rem; letter-spacing: 2px; }
+  .verified-tag {
+    margin-left: auto;
+    background: var(--teal-light); color: #085041;
+    padding: 4px 12px; border-radius: 100px;
+    font-size: 11px; font-weight: 600;
+  }
+
+  /* ─── EDU ─── */
+  .edu-section { background: var(--bg); }
+  .edu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .edu-card {
+    background: var(--card); border-radius: 14px;
+    padding: 1.25rem; border: 1px solid var(--border);
+    border-top: 3px solid var(--purple);
+  }
+  .edu-school { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .edu-deg    { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
+  .edu-yr     { font-size: 12px; color: var(--purple); font-weight: 500; }
+
+  /* ─── WORK HISTORY ─── */
+  .history-section { background: var(--card); }
+  .history-list { display: flex; flex-direction: column; gap: 12px; }
+  .history-item {
+    background: var(--bg); border-radius: 12px;
+    padding: 1.1rem 1.25rem; border: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center;
+  }
+  .history-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .history-meta  { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .history-review {
+    font-size: 12px; color: var(--teal); font-style: italic; margin-top: 4px;
+  }
+  .history-badge {
+    background: var(--purple-light); color: var(--purple-dark);
+    padding: 4px 10px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; white-space: nowrap;
+  }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--purple-dark) 0%, #4a3fb5 50%, #7F77DD 100%);
+    padding: 6rem 2rem; text-align: center;
+  }
+  .cta-section h2 {
+    color: #fff; margin-bottom: .5rem;
+  }
+  .cta-section p { font-size: 15px; color: rgba(255,255,255,.75); margin-bottom: 2rem; }
+  .cta-chips { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+  .cta-chip {
+    background: rgba(255,255,255,.15); color: #fff;
+    padding: 6px 16px; border-radius: 100px;
+    font-size: 12px; font-weight: 500;
+    border: 1px solid rgba(255,255,255,.25);
+  }
+  .btn-white {
+    background: #fff; color: var(--purple-dark);
+    padding: 14px 32px; border-radius: 100px;
+    font-size: 15px; font-weight: 700;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+    display: inline-block;
+    box-shadow: 0 4px 24px rgba(0,0,0,.15);
+  }
+  .btn-white:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,.2); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--text); color: rgba(255,255,255,.5);
+    text-align: center; padding: 2rem;
+    font-size: 13px;
+  }
+  footer a { color: rgba(255,255,255,.7); text-decoration: none; }
+  footer a:hover { color: #fff; }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── CLIENTS ─── */
+  .clients-section { background: var(--bg); }
+  .clients-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+  }
+  .client-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.1rem .75rem;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 90px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .client-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(127,119,221,.13);
+    border-color: rgba(127,119,221,.3);
+  }
+  .client-card img {
+    max-width: 100%; max-height: 50px;
+    object-fit: contain; display: block;
+    filter: grayscale(30%);
+    transition: filter .2s;
+  }
+  .client-card:hover img { filter: grayscale(0%); }
+  .client-name {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .client-fallback {
+    display: none;
+    align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600;
+    color: var(--text-muted); text-align: center;
+    line-height: 1.4;
+    width: 100%;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 700px) {
+    nav { padding: .75rem 1rem; }
+    .nav-links { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .svc-grid { grid-template-columns: 1fr 1fr; }
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .history-item { grid-template-columns: 1fr; }
+    .clients-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .svc-grid { grid-template-columns: 1fr; }
+    .clients-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Chris-Anne R.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#testimonial">Reviews</a></li>
+    <li><a href="#clients">Clients</a></li>
+  </ul>
+  <a href="https://www.upwork.com/freelancers/~012502c3a7078395a2" target="_blank" class="nav-cta">Hire me ↗</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="hero-inner fade-in">
+    <div class="avatar-wrap">CR</div>
+    <div class="hero-tag">Top Rated on Upwork · 100% Job Success</div>
+    <h1>Chris-Anne <em>Roque</em></h1>
+    <p class="hero-sub">Senior VA · Admin, Executive Support, SMM, Operations, Automation & AI</p>
+    <p class="hero-location">📍 Pagbilao, Philippines &nbsp;·&nbsp; <span>$30.00/hr</span> &nbsp;·&nbsp; 30+ hrs/week</p>
+    <div class="hero-badges">
+      <span class="hbadge hb-green">⭐ Top Rated</span>
+      <span class="hbadge hb-purple">100% Job Success</span>
+      <span class="hbadge hb-amber">ID Verified</span>
+      <span class="hbadge hb-pink">0–4 hr Response</span>
+    </div>
+    <div class="hero-btns">
+      <a href="https://www.upwork.com/freelancers/~012502c3a7078395a2" target="_blank" class="btn-main">Hire me on Upwork ↗</a>
+      <a href="#about" class="btn-ghost">Learn more</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-inner">
+    <div class="stat-item fade-in">
+      <span class="stat-num">$200K+</span>
+      <span class="stat-lbl">Total earnings</span>
+    </div>
+    <div class="stat-item fade-in">
+      <span class="stat-num">95</span>
+      <span class="stat-lbl">Jobs completed</span>
+    </div>
+    <div class="stat-item fade-in">
+      <span class="stat-num">19,013</span>
+      <span class="stat-lbl">Hours worked</span>
+    </div>
+    <div class="stat-item fade-in">
+      <span class="stat-num">10+</span>
+      <span class="stat-lbl">Years experience</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="section-inner">
+    <div class="section-eyebrow">About me</div>
+    <h2>Your go-to Senior VA for<br><em style="color:var(--purple);font-style:italic;">everything operational</em></h2>
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p>Detail-oriented Virtual Assistant with <strong>10+ years of experience</strong> supporting business operations across sales support, customer success, project management, administrative operations, and content workflows.</p>
+        <p>Proven track record supporting crowdfunding campaigns with <strong>14,000+ backers</strong>, contributing to <strong>$1.7M+ in revenue</strong>, and managing <strong>20,000+ leads</strong> while maintaining clean CRM pipelines.</p>
+        <p>Strong background in project coordination and remote operations — managing workflows, timelines, and cross-functional tasks while delivering consistent results in fast-paced environments.</p>
+      </div>
+      <ul class="impact-list fade-in">
+        <li>Sales support, customer success &amp; CRM management (20K–30K records)</li>
+        <li>Crowdfunding operations: 14,000+ backers, $1.7M+ revenue</li>
+        <li>End-to-end e-commerce &amp; global fulfillment coordination</li>
+        <li>Stripe &amp; PayPal payments, refunds, disputes &amp; billing</li>
+        <li>Customer support system setup &amp; automation workflows</li>
+        <li>Process improvement to reduce handling time</li>
+        <li>LinkedIn content, podcast production &amp; admin coordination</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="section-inner">
+    <div class="section-eyebrow">What I do</div>
+    <h2>Services I offer</h2>
+    <div class="svc-grid">
+      <div class="svc-card fade-in">
+        <div class="svc-icon" style="background:#EEEDFE;">🗂️</div>
+        <div class="svc-title">Executive & Admin Support</div>
+        <div class="svc-desc">Calendar, inbox, travel planning, and day-to-day operations management for busy executives.</div>
+      </div>
+      <div class="svc-card fade-in">
+        <div class="svc-icon" style="background:#FBEAF0;">📣</div>
+        <div class="svc-title">Social Media Management</div>
+        <div class="svc-desc">LinkedIn content strategy, scheduling, community engagement, and audience growth.</div>
+      </div>
+      <div class="svc-card fade-in">
+        <div class="svc-icon" style="background:#E1F5EE;">🛒</div>
+        <div class="svc-title">E-commerce Operations</div>
+        <div class="svc-desc">Shopify, fulfillment coordination, Stripe/PayPal billing, and customer support systems.</div>
+      </div>
+      <div class="svc-card fade-in">
+        <div class="svc-icon" style="background:#FAEEDA;">🤖</div>
+        <div class="svc-title">Automation & AI</div>
+        <div class="svc-desc">Workflow automation with Zapier, ChatGPT, Claude AI, and smart content tools.</div>
+      </div>
+      <div class="svc-card fade-in">
+        <div class="svc-icon" style="background:#EEEDFE;">🎯</div>
+        <div class="svc-title">Project Management</div>
+        <div class="svc-desc">ClickUp, Asana, Monday, Notion — keeping teams aligned and timelines on track.</div>
+      </div>
+      <div class="svc-card fade-in">
+        <div class="svc-icon" style="background:#FBEAF0;">🎤</div>
+        <div class="svc-title">Podcast & Content Support</div>
+        <div class="svc-desc">Podcast production assistance, research, content workflows, and influencer coordination.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section" id="tools">
+  <div class="section-inner">
+    <div class="section-eyebrow">My toolkit</div>
+    <h2>Tools & platforms I work with</h2>
+    <div class="tools-stack fade-in">
+      <div class="tool-group">
+        <div class="tool-group-name">Project Management</div>
+        <div class="pills-row">
+          <span class="pill">Monday</span>
+          <span class="pill">ClickUp</span>
+          <span class="pill">Asana</span>
+          <span class="pill">Trello</span>
+          <span class="pill">Notion</span>
+          <span class="pill">Actionstep</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-group-name">CRM & Customer Support</div>
+        <div class="pills-row">
+          <span class="pill">HubSpot</span>
+          <span class="pill">Zendesk</span>
+          <span class="pill">Freshdesk</span>
+          <span class="pill">Dixa</span>
+          <span class="pill">Insightly</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-group-name">E-commerce & Payments</div>
+        <div class="pills-row">
+          <span class="pill">Shopify</span>
+          <span class="pill">ShipMonk</span>
+          <span class="pill">StackCommerce</span>
+          <span class="pill">Stripe</span>
+          <span class="pill">PayPal</span>
+          <span class="pill">Oberlo</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-group-name">Productivity & Automation</div>
+        <div class="pills-row">
+          <span class="pill">Zapier</span>
+          <span class="pill">Google Workspace</span>
+          <span class="pill">Microsoft Office</span>
+          <span class="pill">ChatGPT</span>
+          <span class="pill">Claude AI</span>
+          <span class="pill">Canva</span>
+          <span class="pill">Slack</span>
+          <span class="pill">Zoom</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-group-name">Social & Content</div>
+        <div class="pills-row">
+          <span class="pill">LinkedIn</span>
+          <span class="pill">Facebook</span>
+          <span class="pill">Instagram</span>
+          <span class="pill">TikTok</span>
+          <span class="pill">WordPress</span>
+          <span class="pill">Wix</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testi-section" id="testimonial">
+  <div class="section-inner" style="text-align:center;">
+    <div class="section-eyebrow">Client review</div>
+    <h2>What clients say</h2>
+    <div class="testi-card fade-in">
+      <div class="quote-mark">"</div>
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">Chris-Anne has been a rockstar Virtual Assistant at my company for over a year. In that time, she has consistently exceeded goals and been incredibly reliable and responsive. She speaks and writes to my colleagues, clients, and prospects with polish and professionalism. Some areas in which she excels include lead gen, communications, and self-directed work. She gets it done with little oversight or hand-holding. I highly recommend!</p>
+      <div class="testi-footer">
+        <div class="testi-avatar">KM</div>
+        <div>
+          <div class="testi-name">Kate M.</div>
+          <div class="testi-role">Creator, Speaker, Author</div>
+        </div>
+        <span class="verified-tag">✓ Verified · Mar 2020</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="edu-section" id="education">
+  <div class="section-inner">
+    <div class="section-eyebrow">Education</div>
+    <h2>Academic background</h2>
+    <div class="edu-grid">
+      <div class="edu-card fade-in">
+        <div class="edu-school">Southern Luzon State University</div>
+        <div class="edu-deg">Bachelor's degree, Psychology</div>
+        <div class="edu-yr">2009 – 2012</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-school">Technological University of the Philippines</div>
+        <div class="edu-deg">Associate's degree, Civil Engineering</div>
+        <div class="edu-yr">2007 – 2008</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-school">Microcadd</div>
+        <div class="edu-deg">Associate's degree, AutoCAD 2013</div>
+        <div class="edu-yr">2013</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK HISTORY -->
+<section class="history-section" id="history">
+  <div class="section-inner">
+    <div class="section-eyebrow">Work history</div>
+    <h2>Recent Upwork projects</h2>
+    <div class="history-list">
+      <div class="history-item fade-in">
+        <div>
+          <div class="history-title">General / Personal VA</div>
+          <div class="history-meta">Dec 2023 – Feb 2024 &nbsp;·&nbsp; $1,731 &nbsp;·&nbsp; 133 hrs</div>
+          <div class="history-review">"Very good VA, great experience and very good work ethic."</div>
+        </div>
+        <span class="history-badge">⭐ 5.0</span>
+      </div>
+      <div class="history-item fade-in">
+        <div>
+          <div class="history-title">Collaborations assistant &amp; social media posting</div>
+          <div class="history-meta">Aug 2022 – Feb 2024 &nbsp;·&nbsp; $2,475 &nbsp;·&nbsp; 113 hrs</div>
+          <div class="history-review">"Chris-Anne is lovely to work with, follows all instructions and completes tasks efficiently."</div>
+        </div>
+        <span class="history-badge">⭐ 5.0</span>
+      </div>
+      <div class="history-item fade-in">
+        <div>
+          <div class="history-title">General VA with Wix, Shopify &amp; social media</div>
+          <div class="history-meta">Feb 2024 – Feb 2024 &nbsp;·&nbsp; $127 &nbsp;·&nbsp; 9 hrs</div>
+          <div class="history-review">"Thank you for your time, I appreciate your hard work and everything."</div>
+        </div>
+        <span class="history-badge">⭐ 5.0</span>
+      </div>
+      <div class="history-item fade-in">
+        <div>
+          <div class="history-title">Facebook Moderator</div>
+          <div class="history-meta">Dec 2022 – Jul 2023 &nbsp;·&nbsp; $1,197 &nbsp;·&nbsp; 240 hrs</div>
+          <div class="history-review">"Really professional! Recommend!"</div>
+        </div>
+        <span class="history-badge">⭐ 5.0</span>
+      </div>
+      <div class="history-item fade-in">
+        <div>
+          <div class="history-title">Executive Assistant</div>
+          <div class="history-meta">May 2022 – May 2024 &nbsp;·&nbsp; $385 &nbsp;·&nbsp; 18 hrs</div>
+        </div>
+        <span class="history-badge">⭐ 5.0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients-section" id="clients">
+  <div class="section-inner">
+    <div class="section-eyebrow">Portfolio</div>
+    <h2>Companies that trusted me</h2>
+    <p style="color:var(--text-muted);font-size:14px;margin-bottom:2rem;margin-top:-1rem;">Proud to have supported these amazing brands and teams.</p>
+    <div class="clients-grid">
+      <div class="client-card"><img src="logos/gogohire.png" alt="GoGoHire" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">GoGoHire</span></div>
+      <div class="client-card"><img src="logos/soundheadphones.png" alt="Sound Headphones" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Sound Headphones</span></div>
+      <div class="client-card"><img src="logos/trustify.png" alt="Trustify" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Trustify</span></div>
+      <div class="client-card"><img src="logos/famepick.png" alt="FamePick" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">FamePick</span></div>
+      <div class="client-card"><img src="logos/43layers.png" alt="43 Layers" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">43 Layers</span></div>
+      <div class="client-card"><img src="logos/adimmobilier.png" alt="Adim Mobilier" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Adim Mobilier</span></div>
+      <div class="client-card"><img src="logos/billgross.png" alt="Bill Gross" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Bill Gross</span></div>
+      <div class="client-card"><img src="logos/gauravmishramd.png" alt="Gaurav Mishra MD" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Gaurav Mishra MD</span></div>
+      <div class="client-card"><img src="logos/heylois.png" alt="Hey Lois" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Hey Lois</span></div>
+      <div class="client-card"><img src="logos/highoh.png" alt="HighOh." onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">HighOh.</span></div>
+      <div class="client-card"><img src="logos/loopd.png" alt="LOOPD" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">LOOPD</span></div>
+      <div class="client-card"><img src="logos/sitpack.png" alt="Sitpack" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Sitpack</span></div>
+      <div class="client-card"><img src="logos/tinywalls.png" alt="Tiny Walls" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Tiny Walls</span></div>
+      <div class="client-card"><img src="logos/webprintlab.png" alt="Web Print Lab" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Web Print Lab</span></div>
+      <div class="client-card"><img src="logos/dynamitelaserbeam.png" alt="Dynamite Laser Beam" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Dynamite Laser Beam</span></div>
+      <div class="client-card"><img src="logos/growthanalytics.png" alt="Growth Analytics Marketing" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Growth Analytics Marketing</span></div>
+      <div class="client-card"><img src="logos/mattslater.png" alt="Matt Slater" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Matt Slater</span></div>
+      <div class="client-card"><img src="logos/radiche.png" alt="Radiche" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">Radiche</span></div>
+      <div class="client-card"><img src="logos/steadymd.png" alt="SteadyMD" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">SteadyMD</span></div>
+      <div class="client-card"><img src="logos/ymdt.png" alt="You Might Die Tomorrow" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="client-fallback">You Might Die Tomorrow</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-inner">
+    <div class="section-eyebrow" style="color:rgba(255,255,255,.6);">Ready to work together?</div>
+    <h2>Let's take things off your plate.</h2>
+    <p>Available 30+ hrs/week · Responds within 0–4 hours · Open to contract-to-hire</p>
+    <div class="cta-chips">
+      <span class="cta-chip">English: Fluent</span>
+      <span class="cta-chip">Tagalog: Native</span>
+      <span class="cta-chip">30+ hrs/week</span>
+      <span class="cta-chip">Contract-to-hire</span>
+      <span class="cta-chip">ID Verified</span>
+    </div>
+    <a href="https://www.upwork.com/freelancers/~012502c3a7078395a2" target="_blank" class="btn-white">View my Upwork profile ↗</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Chris-Anne Roque &nbsp;·&nbsp; Senior Virtual Assistant &nbsp;·&nbsp;
+    <a href="https://www.upwork.com/freelancers/~012502c3a7078395a2" target="_blank">Upwork Profile</a>
+  </p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
